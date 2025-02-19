@@ -7,6 +7,8 @@
 
 #include <sstream>
 
+#include <random>
+
 #include "game.h"
 
 std::vector<std::string> skeletons, adjectives, nounsSng, nounsPlu;
@@ -64,6 +66,66 @@ void Game::file_to_two_vector(const std::string& path, std::vector<std::string>&
 }
 
 /**
+ * @brief Chooss a random string from a vector.
+ */
+std::string Game::choose_rand(std::vector<std::string>& vec)
+{
+  std::random_device random_device;
+  std::mt19937 gen(random_device());
+  std::uniform_int_distribution<> dist(0, vec.size() - 1);
+  return vec[dist(gen)];
+}
+
+/**
+ * @brief Forms a procedurally generated drawing prompt.
+ */
+std::string Game::make_prompt()
+{
+
+  std::string skeleton = Game::choose_rand(skeletons);
+
+  std::string specials[] = {"[A]", "[N]", "[NP]"};
+  std::vector<std::string> vecs[] = {adjectives, nounsSng, nounsPlu};
+
+  for (int i = 0; i < 3; i++)
+  {
+    size_t startPos = 0;
+    while ((startPos = skeleton.find(specials[i])) != std::string::npos)
+    {
+      std::string replacement = Game::choose_rand(vecs[i]);
+      skeleton.replace(startPos, specials[i].size(), replacement);
+      startPos += replacement.length();
+    }
+  }
+
+  // size_t startPos = 0;
+  // while ((startPos = skeleton.find("[A]")) != std::string::npos)
+  // {
+  //   std::string replacement = Game::choose_rand(adjectives);
+  //   skeleton.replace(startPos, 3, replacement);
+  //   startPos += replacement.length();
+  // }
+
+  // startPos = 0;
+  // while ((startPos = skeleton.find("[N]")) != std::string::npos)
+  // {
+  //   std::string replacement = Game::choose_rand(nounsSng);
+  //   skeleton.replace(startPos, 3, replacement);
+  //   startPos += replacement.length();
+  // }
+
+  // startPos = 0;
+  // while ((startPos = skeleton.find("[NP]")) != std::string::npos)
+  // {
+  //   std::string replacement = Game::choose_rand(nounsPlu);
+  //   skeleton.replace(startPos, 4, replacement);
+  //   startPos += replacement.length();
+  // }
+
+  return skeleton;
+}
+
+/**
  * @brief Constructor for a game object. 
  */
 Game::Game()
@@ -73,6 +135,9 @@ Game::Game()
   Game::start();
 }
 
+/**
+ * @brief calls private methods to process files.
+ */
 void Game::process_files()
 {
   Game::file_to_vector("src/text_files/adjectives.txt", adjectives);
@@ -96,7 +161,8 @@ void Game::start()
 
   while (play_more)
   {
-    std::cout << "\nDRAWING PROMPT\nPress enter to start the timer.";
+    std::string prompt = Game::make_prompt();
+    std::cout << "\nPROMPT: " << prompt << "\nPress enter to start the timer.";
     std::getline(std::cin, buffer);
     std::cout << "Timer started!\n";
     std::this_thread::sleep_for(std::chrono::seconds(wait));
