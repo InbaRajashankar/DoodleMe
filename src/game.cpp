@@ -1,14 +1,10 @@
 #include <iostream>
 #include <thread>
 #include <chrono> // time
-
 #include <fstream>
 #include <vector>
-
 #include <sstream>
-
 #include <random>
-
 #include "game.h"
 
 std::vector<std::string> skeletons, adjectives, nounsSng, nounsPlu;
@@ -98,41 +94,7 @@ std::string Game::make_prompt()
     }
   }
 
-  // size_t startPos = 0;
-  // while ((startPos = skeleton.find("[A]")) != std::string::npos)
-  // {
-  //   std::string replacement = Game::choose_rand(adjectives);
-  //   skeleton.replace(startPos, 3, replacement);
-  //   startPos += replacement.length();
-  // }
-
-  // startPos = 0;
-  // while ((startPos = skeleton.find("[N]")) != std::string::npos)
-  // {
-  //   std::string replacement = Game::choose_rand(nounsSng);
-  //   skeleton.replace(startPos, 3, replacement);
-  //   startPos += replacement.length();
-  // }
-
-  // startPos = 0;
-  // while ((startPos = skeleton.find("[NP]")) != std::string::npos)
-  // {
-  //   std::string replacement = Game::choose_rand(nounsPlu);
-  //   skeleton.replace(startPos, 4, replacement);
-  //   startPos += replacement.length();
-  // }
-
   return skeleton;
-}
-
-/**
- * @brief Constructor for a game object. 
- */
-Game::Game()
-{
-  Game::process_files();
-  std::cout << "Hello, the game will start now\n";
-  Game::start();
 }
 
 /**
@@ -156,8 +118,15 @@ void Game::start()
 
   std::cout << "Please enter your preferred wait time: ";
   std::cin >> wait;
+  while (wait == 0)
+  {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Invalid time entered! Please try again: ";
+    std::cin >> wait;
+  }
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear input buffer
-  std::cout << "wait: " << wait << "\n";
+  std::cout << "Wait time: " << wait << " seconds.\n";
 
   while (play_more)
   {
@@ -174,4 +143,14 @@ void Game::start()
 
   std::cout << "Thank you for playing\n";
   return;
+}
+
+/**
+ * @brief Constructor for a game object. 
+ */
+Game::Game()
+{
+  Game::process_files();
+  std::cout << "Hello, the game will start now\n";
+  Game::start();
 }

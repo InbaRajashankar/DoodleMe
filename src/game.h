@@ -18,8 +18,9 @@ private:
   std::string choose_rand(std::vector<std::string>& vec);
   std::string make_prompt();
 
-public:
-  Game();
   void process_files();
   void start();
+
+public:
+  Game();
 };

@@ -1,3 +1,24 @@
-A [A] [N] jumping on a pogo stick.
+A [N] jumping on a pogo stick.
 A army of [NP].
 A [N] in a hot air baloon.
+A [A] [N].
+A [A] [N].
+A [A] [N].
+A family of [A] [NP].
+A [N] eating a [N].
+A [N] meeting a [N].
+A [N] fighting a [N].
+A [N] running for his life from a [N].
+A [N] wearing a jetpack.
+A [N] scuba-diving.
+An army of [NP] taking over the world.
+An invasion of [NP].
+A [N] [N].
+A ginourmous [N].
+A conga line of [NP].
+A [N] with a giant mustache.
+A [N] wizard.
+A [N] crying.
+A pirate [N].
+A baby [N] with a mother [N].
+A [N] with artificial wings.
