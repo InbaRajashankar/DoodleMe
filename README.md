@@ -7,4 +7,4 @@ DoodleMe is a simple program to help come up with doodle ideas. There are a few 
 - Option 2: A "game" that gives you a random prompt, setting a timer for you (and whoever else) to actually draw it!
 
 ## Usage
-Pretty basic. Copy the repo and run `make` in your terminal, `./doodleme' will start the program.
+Pretty basic. Copy the repo and run `make` in your terminal, `./doodleme` will start the program.
