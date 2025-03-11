@@ -108,9 +108,9 @@ void Game::process_files()
 }
 
 /**
- * @brief Main gameflow logic. 
+ * @brief Main gameflow logic for mode 2. 
  */
-void Game::start()
+void Game::start_mode2()
 {
   int wait;
   bool play_more = true;
@@ -145,12 +145,52 @@ void Game::start()
   return;
 }
 
+void Game::start_mode1()
+{
+  int num_prompts;
+  std::cout << "Enter the number of prompts to generate: ";
+  std::cin >> num_prompts;
+  while (num_prompts == 0)
+  {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Invalid number entered! Please try again: ";
+    std::cin >> num_prompts;
+  }
+
+  std::cout << "\nGenerating " << num_prompts << " prompts...\n";
+
+  for (int i = 1; i <= num_prompts; i++)
+  {
+    std::cout << "- " << i << ") " << Game::make_prompt() << '\n';
+  }
+
+}
+
 /**
  * @brief Constructor for a game object. 
  */
 Game::Game()
 {
+  int game_mode;
+
   Game::process_files();
-  std::cout << "Hello, the game will start now\n";
-  Game::start();
+  std::cout << "Hello, the game will start now\nEnter a game mode:\n";
+  std::cout << " - 1: Generate a set-number of random doodle prompts.\n";
+  std::cout << " - 2: Generate a random prompt ever X seconds.\n> ";
+
+  std::cin >> game_mode;
+  while (game_mode == 0)
+  {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Invalid game mode entered! Please try again: ";
+    std::cin >> game_mode;
+  }
+  std::cout << "Game mode " << game_mode << " chosen.\n";
+
+  if (game_mode == 1)
+    Game::start_mode1();
+  else if (game_mode == 2)
+    Game::start_mode2();
 }

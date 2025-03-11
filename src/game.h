@@ -19,7 +19,8 @@ private:
   std::string make_prompt();
 
   void process_files();
-  void start();
+  void start_mode2();
+  void start_mode1();
 
 public:
   Game();
