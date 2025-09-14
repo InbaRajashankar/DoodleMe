@@ -177,7 +177,7 @@ Game::Game()
   Game::process_files();
   std::cout << "Hello, the game will start now\nEnter a game mode:\n";
   std::cout << " - 1: Generate a set-number of random doodle prompts.\n";
-  std::cout << " - 2: Generate a random prompt ever X seconds.\n> ";
+  std::cout << " - 2: Generate a random prompt every X seconds.\n> ";
 
   std::cin >> game_mode;
   while (game_mode == 0)
